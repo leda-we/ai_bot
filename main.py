@@ -20,7 +20,7 @@ def take_screenshot() -> str:
     temp_path = "temp_celestia_vision.jpg"
     screenshot.save(temp_path, format="JPEG", quality=80)
     return temp_path
-class CelestiaAssistant:
+class Assistant:
     def __init__(self):
         self.client = genai.Client()
         self.model_name = "gemini-2.5-flash"
@@ -50,8 +50,29 @@ class CelestiaAssistant:
                         ]
                     )
 
-                    if os.path.exists(ing_path):
+                    if os.path.exists(img_path):
                         os.remove(img_path)
 
                     return follow_up_response.text
         return response.text
+
+if __name__ == "__main__":
+    print("=== Запуск ===")
+    try:
+        celest = Assistant()
+        print("Всё запущено...")
+
+        while True:
+            user_input = input("\nВведите сообщение (или 'выход'): ")
+            if user_input.lower() in ['выход', 'exit', 'quit']:
+                print("Удачи.")
+                break
+                
+            if not user_input.strip():
+                continue
+
+            reply = celest.ask(user_input)
+            print(f"AI_BOT_NAME: {reply}")
+    except Exception as e:
+        print(f"\nОшибка при запуске: {e}")
+        print("Поверь, установлен ли API_KEY в переменных окружении.")
